@@ -4,18 +4,19 @@
     --color-bg: #FFFFFF;
     --color-primary: #6B73FF;
     --color-secondary: rgba(139,92,246,.80);
+    --color-card: rgba(139,92,246,.2);
 }
 
 :root{
     --bg-color: #F8FAFC;
     --primary-color: #6B73FF;
-    --text-color: #1E293B;
+    --text-color: #6B73FF;
     --card-bg: #f5f5f5;
 }
 
 .dark {
     --bg-color: #121212;
-    --text-color: #f0f0f0;
+    --text-color: #6B73FF;
     --card-bg: #1e1e1e;
 }
 
