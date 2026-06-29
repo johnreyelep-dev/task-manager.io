@@ -1,9 +1,23 @@
+import logo from '../assets/logo.png'
+
 export default function Sidebar({activeTab, setActiveTab}) {
     const items = ["Dashboard", "Task", "Completed", "Pending"];
 
     return (
-        <div className='w-70 flex flex-col items-center gap-20 pt-5 shadow-[1px_0_3px_rgba(139,92,246,.50)]'>
-            <h1 className='text-3xl font-semibold'>Task Manager</h1>
+        <div className='w-70 flex flex-col items-center pt-5 shadow-[1px_0_3px_rgba(139,92,246,.50)]'>
+            <div className=''>
+                <img src={logo} alt='logo' />
+            </div>
+            <div className='text-center mb-10'>
+                <div>
+                    <span className='text-3xl font-bold'>Task Manager</span>
+                    <div className='flex justify-center gap-1'>
+                        <span className='text-sm font-semibold'>ORGANIZE.</span>
+                        <span className='text-sm font-semibold'>DONE.</span>
+                        <span className='text-sm font-semibold'>REPEAT.</span>
+                    </div>
+                </div>
+            </div>
             <ul className='flex flex-col gap-0.5'>
                 {
                     items.map((item, index) => (
