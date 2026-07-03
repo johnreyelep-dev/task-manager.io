@@ -1,6 +1,6 @@
 import {createContext, useContext, useState, useEffect} from "react";
 
-const ThemeContext =createContext();
+const UseThemeContext =createContext();
 
 export function ThemeProvider({ children }) {
     const [theme, setTheme] = useState(() => {
@@ -19,14 +19,14 @@ export function ThemeProvider({ children }) {
     }
 
     return (
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <UseThemeContext.Provider value={{ theme, toggleTheme }}>
             {children}
-        </ThemeContext.Provider>
+        </UseThemeContext.Provider>
     );
 }
 
 export function useTheme() {
-    const context = useContext(ThemeContext);
+    const context = useContext(UseThemeContext);
     if (!context) {
         throw new Error("useTheme must be used within a ThemeProvider");
     }
