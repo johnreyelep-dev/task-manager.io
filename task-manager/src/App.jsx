@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useLocalStorage} from "./hooks/useLocalStorage.jsx";
 import Header from './pages/Header.jsx';
 import Sidebar from './pages/Sidebar.jsx';
 import Dashboard from './component/Dashboard.jsx';
@@ -7,7 +7,7 @@ import {TaskProvider} from "./hooks/useTask.jsx";
 import './index.css'
 
 function App() {
-    const [activeTab, setActiveTab] = useState("Dashboard");
+    const [activeTab, setActiveTab] = useLocalStorage("activeTab", "");
 
   return (
     <TaskProvider >
