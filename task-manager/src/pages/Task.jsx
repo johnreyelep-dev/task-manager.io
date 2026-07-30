@@ -16,11 +16,12 @@ function relativeTime(date) {
 }
 
 export default function Task(){
-    const { tasks, addTask, toggleTask, removeTask } = useTask();
+    const { tasks, addTask, toggleTask, removeTask, restoreTasks } = useTask();
     const [title, setTitle] = useState("");
     const [err, setErr] = useState("");
 
-    const pendingTask = tasks.filter((task) => !task.done);
+    const pendingTask = tasks.filter((task) => !task.done && !task.deleted);
+    const trashedTasks = tasks.filter((task) => task.deleted);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -47,13 +48,13 @@ export default function Task(){
                     {err && <p className='text-red-700'>{err}</p>}
                 </form>
             </section>
-            <section>
+            <section className=''>
                 <div className='flex justify-between items-center gap-3'>
                     <h3 className='text-2xl text-primary '>Pending</h3>
                     <div className='bg-card w-full h-0.5 '></div>
                     <div className='text-nowrap'>{pendingTask.length >= 1 ? `${pendingTask.length} ${pendingTask.length === 1 ? 'task' : 'tasks'}`: "0 task" }</div>
                 </div>
-                <ul className={`grid xl:grid-cols-5 gap-5 px-3 py-5 overflow-x-auto`}>
+                <ul className={`h-45 grid xl:grid-cols-5 gap-5 px-3 py-5 overflow-x-auto`}>
                     {pendingTask.map((task) => (
                         <li key={task.id} className='h-35 flex flex-col justify-between rounded-md shadow-[0_0_3px_rgba(139,92,246,1)] p-3'>
                             <div className='flex flex-col'>
@@ -70,6 +71,16 @@ export default function Task(){
                     ))}
                     {pendingTask.length === 0 && <span className='text-nowrap'>There is no task to-do right now.</span>}
                 </ul>
+                <div className=' mt-5 border border-black'>
+                    <span>Deleted Trash</span>
+                    {trashedTasks.length > 0 && <div className=''>{
+                        trashedTasks.map((task) => (
+                            <li key={task.id} className=''>
+                                <span>{task.title}</span>
+                            </li>
+                        ))
+                    }</div>}
+                </div>
             </section>
         </div>
     );
