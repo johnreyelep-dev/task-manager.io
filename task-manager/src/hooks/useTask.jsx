@@ -12,23 +12,37 @@ export function TaskProvider({ children }){
             title: taskData.title,
             done: false,
             createdAt: Date.now(),
+            deleted: false,
+            deletedAt: Date.now(),
             ...taskData,
         }
         setTasks((prev) => [...prev, newTask]);
     }
 
     const removeTask = (id) => {
-        setTasks((prev) => prev.filter((t) => t.id !== id));
+        setTasks((prev) => prev.map(task => task.id === id ? { ...task, deleted: true, deletedAt: Date.now() } : task));
+    }
+
+    const restoreTasks = (id) => {
+        setTasks((prev) => prev.map((task) => task.id === id ? { ...task, deleted: false, deletedAt: null } : task));
+    }
+
+    const deleteTaskPermanent = (id) => {
+        setTasks((prev) => prev.filter((task) => task.id !== id));
+    }
+
+    const emptyTrash = () => {
+        setTasks((prev) => prev.filter((task) => !task.deleted));
     }
 
     const toggleTask = (id) => {
-        setTasks((prev) => {
-            prev.map((task) => (task.id === id ? { ...task, done: !task.done } : task));
-        });
+        setTasks((prev) =>
+            prev.map((task) => (task.id === id ? { ...task, done: !task.done } : task))
+        );
     }
 
     return (
-        <TaskContext.Provider value={ {tasks, addTask, removeTask, toggleTask }} >
+        <TaskContext.Provider value={ {tasks, addTask, removeTask, toggleTask, emptyTrash, deleteTaskPermanent, restoreTasks }} >
             {children}
         </TaskContext.Provider>
     );
